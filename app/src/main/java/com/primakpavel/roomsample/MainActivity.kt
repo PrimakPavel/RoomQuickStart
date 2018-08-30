@@ -31,11 +31,11 @@ class MainActivity() : AppCompatActivity() {
             val name = mNameInput?.text?.toString()
             name?.let { name ->
                 executor?.execute {
-                    AppDatabase.getInstance(this).userDao?.insert(User(name,20))
+                    AppDatabase.getInstance(this)?.userDao?.insert(User(name,20))
                 }
             }
         }
-        val usersLiveData = AppDatabase.getInstance(this).userDao?.getAllUsers()
+        val usersLiveData = AppDatabase.getInstance(this)?.userDao?.getAllUsers()
         usersLiveData?.observe(this, Observer { usersList ->
             val usersStr = StringBuilder("")
             usersList?.forEach {
