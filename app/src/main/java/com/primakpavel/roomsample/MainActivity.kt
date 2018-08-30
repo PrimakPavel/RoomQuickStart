@@ -22,10 +22,6 @@ class MainActivity() : AppCompatActivity() {
         findViewById<TextView?>(R.id.all_users_stuff)
     }
 
-    private val mShowUsersBtn: Button? by lazy {
-        findViewById<Button?>(R.id.show_btn)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,15 +35,13 @@ class MainActivity() : AppCompatActivity() {
                 }
             }
         }
-        mShowUsersBtn?.setOnClickListener { it ->
-            val usersLiveData = AppDatabase.getInstance(this).userDao?.getAllUsers()
-            usersLiveData?.observe(this, Observer { usersList ->
-                val usersStr = StringBuilder("")
-                usersList?.forEach {
-                    usersStr.append(it.toString())
-                }
-                mUsersStuff?.text = usersStr.toString()
-            })
-        }
+        val usersLiveData = AppDatabase.getInstance(this).userDao?.getAllUsers()
+        usersLiveData?.observe(this, Observer { usersList ->
+            val usersStr = StringBuilder("")
+            usersList?.forEach {
+                usersStr.append(it.toString())
+            }
+            mUsersStuff?.text = usersStr.toString()
+        })
     }
 }
